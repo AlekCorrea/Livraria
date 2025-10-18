@@ -12,3 +12,4 @@ app.use((req, res) => {
 res.status(404).json({ erro: "Endpoint não encontrado" });
 });
 module.exports = app;
+ 
