@@ -5,9 +5,9 @@ const router = express.Router();
 const livrosRoutes = require("./livros.routes");
 // Rota inicial (explicação do sistema)
 router.get("/", (req, res) => {
-res.status(200).json({
-mensagem: "Bem-vindo à API da Livraria! Use /livros para gerenciar os livros.",
-});
+    res.status(200).json({
+        mensagem: "Bem-vindo à API da Livraria! Use /livros para gerenciar os livros.",
+    });
 });
 // Usa as rotas de livros
 router.use("/livros", livrosRoutes);

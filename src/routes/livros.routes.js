@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const LivrosController = require("../controllers/livros.controller");
+
 const livrosController = new LivrosController();
 
 // Rotas sem middlewares

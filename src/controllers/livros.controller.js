@@ -1,62 +1,65 @@
-// src/controllers/livros.controller.js
 const LivrosRepository = require("../repositories/livros.repository");
-const Livro = require("../models/livro.model");
 
 class LivrosController {
-    constructor() {
-        this.livrosRepo = new LivrosRepository();
-    }
-
-    async listarLivros(req, res) {
-        try {
-            const livros = await this.livrosRepo.findAll();
-            res.json(livros.map(l => l.toJSON()));
-        } catch (error) {
-            res.status(error.statusCode || 500).json({ erro: error.message });
-        }
-    }
-
-    async buscarLivroPorId(req, res) {
-        try {
-            const id = parseInt(req.params.id, 10);
-            const livro = await this.livrosRepo.findById(id);
-            if (!livro) {
-                return res.status(404).json({ erro: "Livro não encontrado" });
-            }
-            res.json(livro.toJSON());
-        } catch (error) {
-            res.status(error.statusCode || 500).json({ erro: error.message });
-        }
-    }
-
-    async criarLivro(req, res) {
-        try {
-            const novoLivro = await this.livrosRepo.create(req.body);
-            res.status(201).json(novoLivro.toJSON());
-        } catch (error) {
-            res.status(error.statusCode || 500).json({ erro: error.message, detalhes: error.details || null });
-        }
-    }
-
-    async atualizarLivro(req, res) {
-        try {
-            const id = parseInt(req.params.id, 10);
-            const livroAtualizado = await this.livrosRepo.update(id, req.body);
-            res.json(livroAtualizado.toJSON());
-        } catch (error) {
-            res.status(error.statusCode || 500).json({ erro: error.message, detalhes: error.details || null });
-        }
-    }
-
-    async removerLivro(req, res) {
-        try {
-            const id = parseInt(req.params.id, 10);
-            const livroRemovido = await this.livrosRepo.delete(id);
-            res.json({ mensagem: "Livro removido com sucesso", livro: livroRemovido.toJSON() });
-        } catch (error) {
-            res.status(error.statusCode || 500).json({ erro: error.message });
-        }
-    }
+constructor() {
+    this.repository = new LivrosRepository();
 }
 
+async listarLivros(req, res, next) {
+    const livros = await this.repository.findAll();
+    res.status(200).json(livros);
+}
+
+async buscarLivroPorId(req, res, next) {
+    const id = parseInt(req.params.id);
+    const livro = await this.repository.findById(id);
+    if (!livro) {
+        return res.status(404).json({ erro: "Livro não encontrado" });
+    }
+    res.status(200).json(livro);
+}
+
+async criarLivro(req, res, next) {
+  try {
+    const { titulo, autor, categoria, ano, editora, numeroPaginas } = req.body;
+
+    const novoLivro = await this.repository.create({
+      titulo,
+      autor,
+      categoria,
+      ano: parseInt(ano),
+      editora,
+      numeroPaginas: parseInt(numeroPaginas)
+    });
+
+    res.status(201).json({
+      mensagem: "Livro criado com sucesso",
+      data: novoLivro
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+async atualizarLivro(req, res, next) {
+    const id = parseInt(req.params.id);
+    const dados = req.body;
+    const livroAtualizado = await this.repository.update(id, dados);
+    res.status(200).json({
+        mensagem: "Livro atualizado com sucesso",
+        data: livroAtualizado
+    });
+}
+
+async removerLivro(req, res, next) {
+    const id = parseInt(req.params.id);
+    const livroRemovido = await this.repository.delete(id);
+    res.status(200).json({
+        mensagem: "Livro removido com sucesso",
+        data: livroRemovido
+    });
+}
+
+}
 module.exports = LivrosController;
