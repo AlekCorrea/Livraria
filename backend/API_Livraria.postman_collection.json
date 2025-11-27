@@ -13,12 +13,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/livros",
+					"raw": "http://localhost:3333/api/livros",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros"
@@ -33,12 +33,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/livros/1",
+					"raw": "http://localhost:3333/api/livros/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros",
@@ -68,7 +68,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros"
@@ -83,12 +83,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/livros/2",
+					"raw": "http://localhost:3333/api/livros/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3333",
 					"path": [
 						"api",
 						"livros",

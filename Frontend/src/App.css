@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+/* frontend/src/App.css */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px 0;
+}
